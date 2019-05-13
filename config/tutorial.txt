@@ -1,3 +1,1 @@
-create user velsis_django with password '09kr1@qu07h@' createdb;
-create database ia_server owner velsis_django;
-psql -h localhost -U ia_server user velsis_django
+pip install -r requirements.txt
