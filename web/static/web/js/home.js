@@ -1,15 +1,13 @@
 function addItem() {
     var li = document.createElement("LI");
-    var input = document.getElementById("add");
-    li.innerHTML = input.value;
-    input.value = "";
-
+    var esquerda = document.getElementById("esquerda_prod")
+    var direita = document.getElementById("direita_prod")
+    li.innerHTML = esquerda.value + "=" + direita.value;
+    esquerda.value = direita.value = "";
     document.getElementById("producao").appendChild(li);
-    // console.log(document.querySelector("#producao").children);
 }
 
 function create_post() {
-    // console.log($("form").serializeArray());
     let val = [];
     [...document.querySelector("#producao").children].forEach(function (item) {
         val.push(item.textContent);
@@ -32,13 +30,11 @@ function create_post() {
             console.log(data);
         },
         error: function () {
-            // alert('Deu Erro');
             console.log('Deu Erro');
         }
     });
     event.preventDefault();
-
-    // CSRF code
+    
     function getCookie(name) {
         var cookieValue = null;
         var i = 0;
