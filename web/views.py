@@ -12,7 +12,8 @@ def home_view(request):
 def create_post(request):
     if request.method == 'POST':
         print(request.POST)
-        response_data = request.POST
+        response_data = dict(request.POST)
+        print(response_data)
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"
