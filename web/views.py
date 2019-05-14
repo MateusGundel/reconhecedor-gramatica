@@ -7,13 +7,12 @@ from daemon.functions import Functions
 def home_view(request):
     return render(request, 'web/home.html')
 
-
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
         functions = Functions()
-        resposta = functions.process(request.POST)
-        print(resposta)
+        functions.process(request.POST)
+        #print(resposta)
         response_data = request.POST
         return HttpResponse(
             json.dumps(response_data),

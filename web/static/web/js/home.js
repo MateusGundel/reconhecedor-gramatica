@@ -27,10 +27,10 @@ function create_post() {
             }
         },
         success: function (data) {
-            console.log(data);
+            //console.log(data);
         },
         error: function () {
-            console.log('Deu Erro');
+            console.log('Deu Erro:', error);
         }
     });
     event.preventDefault();
