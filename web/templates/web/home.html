@@ -5,29 +5,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Reconhecedor de Gramática</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
     <link rel="stylesheet" href="{% static 'web/css/home.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/icon.png' %}"/>
     <script type="text/javascript" src="{% static 'web/js/home.js' %}"></script>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.4.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.js' %}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
 </head>
-<body>
-<div>
+
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
     <div class="bg-dark collapse" id="navbarHeader">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h4 class="text-white">Sobre</h4>
-                    <p class="text-white-50">Trabalho desenvolvido para a discipla de Linguagens Formais da UNISC <br>Profa.
+                    <p class="text-white">Trabalho desenvolvido para a discipla de Linguagens Formais da UNISC
+                        <br>Profa.
                         Dra. Andréa Aparecida Konzen</p>
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Desenvolvido por</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">- Mateus Elias Gündel</a></li>
-                        <li><a href="#" class="text-white">- Thales Eduardo Müller</a></li>
+                        <li><a href="https://github.com/Gundel5" class="text-white">- Mateus Elias Gündel</a></li>
+                        <li><a href="https://github.com/ThalesMuller/" class="text-white">- Thales Eduardo Müller</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -38,66 +44,72 @@
             <a href="/home" class="navbar-brand d-flex align-items-center">
                 <strong>Manipulador de Gramáticas </strong>
             </a>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader"
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </div>
-</div>
 
-<div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
-        <div class="container-fluid">
-            <br>
-            <div class="row">
-                <form action="/home/" method="POST">
-                    {#                    {% csrf_token %}#}
-                    <div class="offset-lg-1 col-lg-10">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h5 class="m-0 font-weight-bold text-black-50">Entradas</h5>
-                            </div>
 
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label>Gramática</label><br>
-                                    <span>G = ({</span>
-                                    <input type="text" id="gramatica-1" placeholder="S, A, B" pattern="/[A-Z, ]/g">
-                                    <span>}, {</span>
-                                    <input type="text" id="gramatica-2" placeholder="a, b, c" pattern="[a-z,]">
-                                    <span>}, P, S)</span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Produções</label><br>
-                                    <ul id="producao"></ul>
-                                    <div>
-                                        <input id="esquerda_prod" type="text" placeholder="S">
-                                        <span>=</span>
-                                        <input id="direita_prod" type="text" placeholder="Sa|Sb|S">
-                                        <button type="button" onclick="addItem()">+</button>
-                                    </div>
-                                </div>
-                                <input type="button" value="Verificar" onclick="create_post()">
-                            </div>
+    <div class="container-fluid">
+        <br>
+        <div class="row">
+            <div class="offset-lg-1 col-lg-10">
+                <div class="card shadow mb-4">
+
+                    <div class="card-header py-3">
+                        <h4 class="m-0 font-weight-bold text-black-50">Entradas</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Gramática</h5>
+                        <div class="form-group form-inline col-9">
+                            <label>G = ({</label>
+                            <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
+                            <label>}, {</label>
+                            <input type="text" class="form-control col-2" ng-model="gramaticaNaoTerminal">
+                            <label>}, P, </label>
+                            <input type="text" class="form-control col-1" ng-model="gramaticaInicial">
+                            <label>)</label>
                         </div>
+                    </div>
 
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h5 class="m-0 font-weight-bold text-black-50">Resultado</h5>
-                            </div>
-                            <div class="card-body">
-                                The styling for this basic card example is created by using default Bootstrap utility
-                                classes. By using utility classes, the style of the card component can be easily
-                                modified
-                                with no need for any custom CSS!
+                    <div class="card-body">
+                        <h5 class="card-title">Produções</h5>
+                        <div ng-repeat="item in listItem track by $index">
+                            <div class="form-group form-inline">
+                                <input class="form-control mx-1" type="text" ng-value="item.esquerda"
+                                       ng-model="item.esquerda">
+                                <span class="mx-1">=</span>
+                                <input class="form-control mx-1" type="text" ng-value="item.direita"
+                                       ng-model="item.direita">
+                                <button type="button" class="btn btn-primary mx-1"
+                                        ng-click="addItem()"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-danger mx-1 "
+                                        ng-click="removeItem(item.id)"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
-                </form>
+
+                    <div class="card-body">
+                        <input class="btn btn-success mx-1" type="button" value="Verificar" ng-click="generate()">
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4" ng-show="isFinalResult">
+                    <div class="card-header py-3">
+                        <h4 class="m-0 font-weight-bold text-black-50">Resultado</h4>
+                    </div>
+                    <div class="card-body">
+                        [[finalResult]]
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -106,5 +118,4 @@
         </div>
     </footer>
 </div>
-</body>
 </html>

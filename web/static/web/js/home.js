@@ -1,61 +1,57 @@
-function addItem() {
-    var li = document.createElement("LI");
-    var esquerda = document.getElementById("esquerda_prod")
-    var direita = document.getElementById("direita_prod")
-    li.innerHTML = esquerda.value + "=" + direita.value;
-    esquerda.value = direita.value = "";
-    document.getElementById("producao").appendChild(li);
-}
+var app = angular.module('myApp', []);
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[').endSymbol(']]');
+})
 
-function create_post() {
-    let val = [];
-    [...document.querySelector("#producao").children].forEach(function (item) {
-        val.push(item.textContent);
-    })
-    $.ajax({
-        type: 'POST',
-        url: '/home/create_post/',
-        data:{'gramatica-nao-terminal': $('#gramatica-1').val(),
-            'gramatica-terminal': $('#gramatica-2').val(),
-            'producoes': val,} ,
-        dataType: 'json',
-        encode: true,
-        crossDomain: false,
-        beforeSend: function (xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        },
-        success: function (data) {
-            //console.log(data);
-        },
-        error: function () {
-            console.log('Deu Erro:', error);
-        }
-    });
-    event.preventDefault();
-    
-    function getCookie(name) {
-        var cookieValue = null;
-        var i = 0;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (i; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+app.controller('myCtrl', function ($scope, $http) {
+    $scope.gramaticaTerminal = "S, A, B";
+    $scope.gramaticaNaoTerminal = "c, a, b";
+    $scope.gramaticaInicial = "S";
+    $scope.listItem = [{id: 0, esquerda: 'S', direita: 'Sa'}];
+    $scope.finalResult = "";
+    $scope.isFinalResult = false;
+    $scope.addItem = function () {
+        $scope.listItem.push({id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: ''});
+        console.log($scope.listItem)
+    }
+
+    $scope.removeItem = function (id) {
+        if ($scope.listItem.length > 1) {
+            $scope.listItem.forEach(function (element, index) {
+                if (element['id'] === id) {
+                    console.log(index);
+                    console.log(element['id']);
+                    $scope.listItem.splice(index, 1)
+                    console.log($scope.listItem)
                 }
-            }
+            });
         }
-        return cookieValue;
     }
 
-    var csrftoken = getCookie('csrftoken');
+    $scope.generate = function () {
+        $.blockUI({ message: '<h1><img src="https://scontent.fpoa8-1.fna.fbcdn.net/v/t1.0-9/29315270_1782513481769521_4325627701726543872_n.jpg?_nc_cat=107&_nc_ht=scontent.fpoa8-1.fna&oh=f80982f84264cbf42099379008f0d002&oe=5D5109C6" /> Just a moment...</h1>' });
 
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        $http({
+            method: "POST",
+            url: '/create_post/',
+            data: {
+                'gramatica-terminal': $scope.gramaticaTerminal,
+                'gramatica-nao-terminal': $scope.gramaticaNaoTerminal,
+                'gramatica-inicial': $scope.gramaticaInicial,
+                'producao': $scope.listItem
+            },
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.finalResult = response;
+                $scope.isFinalResult = true;
+                $.unblockUI();
+            }, function errorCallback(response) {
+                console.log(response);
+                $.unblockUI();
+            });
     }
-};
+
+});

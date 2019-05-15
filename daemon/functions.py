@@ -9,7 +9,7 @@ class Functions:
         print(self.array_from_view)
         return "meu ovo esquerdo"
     def organizar_retorno(self):
-        #<QueryDict: {'gramatica-nao-terminal': ['S,A,B'], 'gramatica-terminal': ['B,E']}>
+        #<QueryDict: {'producoes[]': ['S=Sa, s', 'b=Bb'], 'gramatica-terminal': ['a,b'], 'gramatica-nao-terminal': ['A,B,C']}>
         objeto_retorno = {
             "N": "",
             "T": "",
