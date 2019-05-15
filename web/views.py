@@ -1,6 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse, Http404
 import json
+import time
 from daemon.functions import Functions
 
 # Create your views here.
@@ -10,13 +11,12 @@ def home_view(request):
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
+        time.sleep(4)
         functions = Functions()
-        functions.process(request.POST)
-        #print(resposta)
-        response_data = request.POST
+        functions.process(json.loads(request.body))
+        response_data = "respondeu"
         return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
+            json.dumps(response_data)
         )
     else:
         raise Http404
