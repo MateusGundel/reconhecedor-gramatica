@@ -12,12 +12,13 @@ function create_post() {
     [...document.querySelector("#producao").children].forEach(function (item) {
         val.push(item.textContent);
     })
+    console.log(val)
     $.ajax({
         type: 'POST',
-        url: '/home/create_post/',
+        url: '/create_post/',
         data:{'gramatica-nao-terminal': $('#gramatica-1').val(),
             'gramatica-terminal': $('#gramatica-2').val(),
-            'producoes': val,} ,
+            'producoes': val,},
         dataType: 'json',
         encode: true,
         crossDomain: false,
