@@ -4,10 +4,19 @@ app.config(function ($interpolateProvider) {
 })
 
 app.controller('myCtrl', function ($scope, $http) {
-    $scope.gramaticaTerminal = "S, A, B";
-    $scope.gramaticaNaoTerminal = "c, a, b";
-    $scope.gramaticaInicial = "S";
-    $scope.listItem = [{id: 0, esquerda: 'S', direita: 'Sa'}];
+    var debug = true;
+    if(debug){
+        //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
+        $scope.gramaticaTerminal = "S, A, B";
+        $scope.gramaticaNaoTerminal = "c, a, b";
+        $scope.gramaticaInicial = "S";
+        $scope.listItem = [{id: 0, esquerda: 'S', direita: 'Sa'}];
+    }else{
+        $scope.gramaticaTerminal = "";
+        $scope.gramaticaNaoTerminal = "";
+        $scope.gramaticaInicial = "";
+        $scope.listItem = [{id: 0, esquerda: '', direita: ''}];
+    }
     $scope.finalResult = "";
     $scope.isFinalResult = false;
     $scope.addItem = function () {
