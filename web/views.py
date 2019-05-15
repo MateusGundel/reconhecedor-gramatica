@@ -10,9 +10,7 @@ def home_view(request):
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
-        functions = Functions()
-        functions.process(request.POST)
-        #print(resposta)
+        functions = Functions(request.POST)
         response_data = request.POST
         return HttpResponse(
             json.dumps(response_data),

@@ -2,11 +2,35 @@ import json
 
 class Functions:
     sentenca_vazia = "&"
-    def __init__(self):
-        pass
-    def process(self, array_from_view):
-        print(array_from_view)
+    def __init__(self, array_from_view):
+        self.array_from_view = array_from_view
+        self.process()
+    def process(self):
+        print(self.array_from_view)
         return "meu ovo esquerdo"
+    def organizar_retorno(self):
+        #<QueryDict: {'gramatica-nao-terminal': ['S,A,B'], 'gramatica-terminal': ['B,E']}>
+        objeto_retorno = {
+            "N": "",
+            "T": "",
+            "P": "",
+            "S": "",
+            "lista_producoes": [
+                {
+                    "valor_direita":"",
+                    "valor_esquerda": ""
+                }
+            ]
+        }
+        #self.array_from_view = self.array_from_view.replace("<", " ")
+        return objeto_retorno
+    def remove_useless_chars(self):
+        itens_replace = """<>{}"""
+        self.remove_multiple_chars(itens_replace)
+    def remove_multiple_chars(self, itens_replace):
+        for item in itens_replace:
+            if (item in itens_replace):
+                self.array = self.array.replace(item, "")
     def verifica_entrada(self, N, T, P, S, producoes):
     #N - conjunto finito de não-terminais (ou variáveis)  {}
     #T - conjunto finito de terminais {}
