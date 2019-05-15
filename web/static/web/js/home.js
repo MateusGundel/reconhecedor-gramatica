@@ -5,22 +5,23 @@ app.config(function ($interpolateProvider) {
 
 app.controller('myCtrl', function ($scope, $http) {
     var debug = true;
-    if(debug){
+    if (debug) {
+        var objeto_gramatica = gramatica_exemplo(3);
         //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
-        $scope.gramaticaTerminal = "S, A, B";
-        $scope.gramaticaNaoTerminal = "c, a, b";
-        $scope.gramaticaInicial = "S";
-        $scope.listItem = [{id: 0, esquerda: 'S', direita: 'Sa'}];
-    }else{
+        $scope.gramaticaTerminal = objeto_gramatica.gramaticaTerminal;
+        $scope.gramaticaNaoTerminal = objeto_gramatica.gramaticaNaoTerminal;
+        $scope.gramaticaInicial = objeto_gramatica.gramaticaInicial;
+        $scope.listItem = objeto_gramatica.listItem;
+    } else {
         $scope.gramaticaTerminal = "";
         $scope.gramaticaNaoTerminal = "";
         $scope.gramaticaInicial = "";
-        $scope.listItem = [{id: 0, esquerda: '', direita: ''}];
+        $scope.listItem = [{ id: 0, esquerda: '', direita: '' }];
     }
     $scope.finalResult = "";
     $scope.isFinalResult = false;
     $scope.addItem = function () {
-        $scope.listItem.push({id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: ''});
+        $scope.listItem.push({ id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: '' });
         console.log($scope.listItem)
     }
 
@@ -62,5 +63,146 @@ app.controller('myCtrl', function ($scope, $http) {
                 $.unblockUI();
             });
     }
-
 });
+
+gramatica_exemplo = function (tipo_gramatica) {
+    var objeto_gramatica = {};
+    switch (tipo_gramatica) {
+        case 0:
+            objeto_gramatica = {
+                "gramaticaTerminal": "A, B, C",
+                "gramaticaNaoTerminal": "a, b",
+                "gramaticaInicial": "P",
+                "gramaticaTerminal": "A",
+                "L(G)": "ba, ab",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "A",
+                        direita: "BC"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "BC",
+                        direita: "CB"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "B",
+                        direita: "b"
+                    },
+                    {
+                        id: 3,
+                        esquerda: "C",
+                        direita: "a"
+                    }
+                ]
+            }
+            break;
+        case 1:
+            objeto_gramatica = {
+                "gramaticaTerminal": "S, B, C",
+                "gramaticaNaoTerminal": "a, b, c",
+                "gramaticaInicial": "P",
+                "gramaticaTerminal": "S",
+                "L(G)": "anbncn | n>=1}",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "aSBC"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "S",
+                        direita: "aBC"
+                    },
+                    {
+                        id: 3,
+                        esquerda: "CB",
+                        direita: "BC"
+                    },
+                    {
+                        id: 4,
+                        esquerda: "aB",
+                        direita: "ab"
+                    },
+                    {
+                        id: 5,
+                        esquerda: "bB",
+                        direita: "bb"
+                    },
+                    {
+                        id: 6,
+                        esquerda: "bC",
+                        direita: "bc"
+                    },
+                    {
+                        id: 7,
+                        esquerda: "cC",
+                        direita: "cc"
+                    }
+                ]
+            }
+            break;
+        case 2:
+            console.warn("Não há nenhuma gramática do tipo GLC cadastrada");
+            objeto_gramatica = {
+                "gramaticaTerminal": "A, B, C",
+                "gramaticaNaoTerminal": "a, b",
+                "gramaticaInicial": "P",
+                "gramaticaTerminal": "A",
+                "L(G)": "ba, ab",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "A",
+                        direita: "BC"
+                    },
+                    {
+                        id: 0,
+                        esquerda: "BC",
+                        direita: "CB"
+                    },
+                    {
+                        id: 0,
+                        esquerda: "B",
+                        direita: "b"
+                    },
+                    {
+                        id: 0,
+                        esquerda: "C",
+                        direita: "a"
+                    }
+                ]
+            }
+            break;
+        case 3:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaTerminal": "S",
+                "gramaticaNaoTerminal": "a, b",
+                "gramaticaInicial": "P",
+                "gramaticaTerminal": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "aS"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "S",
+                        direita: "b"
+                    }
+                ]
+            }
+            break;
+        default:
+            console.error("tipo de gramática inválido");
+            break;
+    };
+    console.log(objeto_gramatica);
+    return objeto_gramatica;
+};
+
