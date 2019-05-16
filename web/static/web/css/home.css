@@ -1,0 +1,14 @@
+.card-header.bg-dark.py-3{
+    background-color: #5f636b !important;
+    border-width: 1.5px;
+}
+.card-body{
+    color: black;
+    background-color: #adadad;
+}
+.card.shadow.mb-4{
+    background-color: #5f636b;
+    border-color: #5f636b;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
