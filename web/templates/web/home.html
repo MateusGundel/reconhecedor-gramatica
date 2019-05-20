@@ -67,9 +67,9 @@
                         <h5 class="card-title">Gramática</h5>
                         <div class="form-group form-inline col-9">
                             <label>G = ({</label>
-                            <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
-                            <label>}, {</label>
                             <input type="text" class="form-control col-2" ng-model="gramaticaNaoTerminal">
+                            <label>}, {</label>
+                            <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
                             <label>}, P, </label>
                             <input type="text" class="form-control col-1" ng-model="gramaticaInicial">
                             <label>)</label>
@@ -88,7 +88,7 @@
                                 <button type="button" class="btn btn-primary mx-1"
                                         ng-click="addItem()"><i class="fa fa-plus"></i></button>
                                 <button type="button" class="btn btn-danger mx-1 "
-                                        ng-click="gramatica_exemplo(0)"><i class="fa fa-trash"></i></button>
+                                        ng-click="removeItem(item.id)"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>

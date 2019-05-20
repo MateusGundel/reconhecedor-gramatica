@@ -70,10 +70,9 @@ gramatica_exemplo = function (tipo_gramatica) {
     switch (tipo_gramatica) {
         case 0:
             objeto_gramatica = {
-                "gramaticaTerminal": "A, B, C",
-                "gramaticaNaoTerminal": "a, b",
-                "gramaticaInicial": "P",
-                "gramaticaTerminal": "A",
+                "gramaticaNaoTerminal": "A, B, C",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "A",
                 "L(G)": "ba, ab",
                 "listItem": [
                     {
@@ -103,8 +102,7 @@ gramatica_exemplo = function (tipo_gramatica) {
             objeto_gramatica = {
                 "gramaticaTerminal": "S, B, C",
                 "gramaticaNaoTerminal": "a, b, c",
-                "gramaticaInicial": "P",
-                "gramaticaTerminal": "S",
+                "gramaticaInicial": "S",
                 "L(G)": "anbncn | n>=1}",
                 "listItem": [
                     {
@@ -148,10 +146,9 @@ gramatica_exemplo = function (tipo_gramatica) {
         case 2:
             console.warn("Não há nenhuma gramática do tipo GLC cadastrada");
             objeto_gramatica = {
-                "gramaticaTerminal": "A, B, C",
-                "gramaticaNaoTerminal": "a, b",
-                "gramaticaInicial": "P",
-                "gramaticaTerminal": "A",
+                "gramaticaNaoTerminal": "A, B, C",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "A",
                 "L(G)": "ba, ab",
                 "listItem": [
                     {
@@ -179,10 +176,9 @@ gramatica_exemplo = function (tipo_gramatica) {
             break;
         case 3:
             objeto_gramatica = objeto_gramatica = {
-                "gramaticaTerminal": "S",
-                "gramaticaNaoTerminal": "a, b",
-                "gramaticaInicial": "P",
-                "gramaticaTerminal": "S",
+                "gramaticaNaoTerminal": "S",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "S",
                 "L(G)": "{anb; n ≥0} ou a*b",
                 "listItem": [
                     {

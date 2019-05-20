@@ -3,8 +3,8 @@ import json
 """
     objeto de retorno
     {
-    "gramatica-terminal": "A, B",
-    "gramatica-nao-terminal": "a, b",
+    "gramatica-nao-terminal": "A, B",
+    "gramatica-terminal": "a, b",
     "gramatica-inicial": "S",
     "producao": [
         {
@@ -19,10 +19,10 @@ import json
         }]
     }
 """
-        # self.object_from_view["gramatica-nao-terminal"] - conjunto finito de não-terminais (ou variáveis)  {}
-        # T - conjunto finito de terminais {}
-        # P - conjunto finito de regras de produção
-        # S - símbolo inicial da gramática
+#           N - conjunto finito de não-terminais (ou variáveis)  {}
+#           T - conjunto finito de terminais {}
+#           P - conjunto finito de regras de produção
+#           S - símbolo inicial da gramática
 
 
 class Functions:
@@ -33,7 +33,7 @@ class Functions:
         self.process()
 
     def process(self):
-        print(self.object_from_view)
+        #print(self.object_from_view)
         self.verifica_gramatica()
 
     def verifica_gramatica(self):
@@ -90,9 +90,10 @@ class Functions:
         possui_N=False
         for char in lado_esquerdo:
             if (char in self.object_from_view["gramatica-nao-terminal"]):
-                if(possui_N == True):
+                if(possui_N != True):
+                    possui_N=True
+                else:
                     return False
-                possui_N=True
         return True if ((possui_N == True) and (not(self.sentenca_vazia in lado_direito))) else False
 
     def is_gram_regular(self, lado_esquerdo, lado_direito):  # 3
@@ -104,10 +105,15 @@ class Functions:
                     return False
                 possui_N=True
         # lado direito
-
+        for char in lado_direito:
+            possui_T = False
+            if(not(char in self.object_from_view["gramatica-terminal"])):
+                return False
+            elif(True):
+                pass
 
     def type_and_enums_gramatica(self, num_tipo):
-        type_num_name={
+        type_num_name = {
             0: "Gramática Irrestrita - GI",
             1: "Gramática Sensível ao contexto - GSC",
             2: "Gramática Livre de Contexto - GLC",
