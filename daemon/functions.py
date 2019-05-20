@@ -105,12 +105,14 @@ class Functions:
                     return False
                 possui_N=True
         # lado direito
-        for char in lado_direito:
-            possui_T = False
+        for index, char in enumerate(lado_direito):
+            if(len(lado_direito) > 2):
+                return False
             if(not(char in self.object_from_view["gramatica-terminal"])):
                 return False
-            elif(True):
-                pass
+            elif(not(lado_direito[index + 1] in self.object_from_view["gramatica-terminal"])):
+                return False
+        return True if (possui_N) else False
 
     def type_and_enums_gramatica(self, num_tipo):
         type_num_name = {
