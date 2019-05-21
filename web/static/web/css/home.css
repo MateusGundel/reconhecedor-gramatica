@@ -1,14 +1,35 @@
+:root{
+    --background-claro:  #e8e8e8;
+    --background-header: #5f636b;
+    --background-corpo: #adadad;
+}
+
 .card-header.bg-dark.py-3{
-    background-color: #5f636b !important;
+    background-color: var(--background-header) !important;
     border-width: 1.5px;
 }
 .card-body{
     color: black;
-    background-color: #adadad;
+    background-color: var(--background-corpo);
 }
 .card.shadow.mb-4{
-    background-color: #5f636b;
-    border-color: #5f636b;
+    background-color: var(--background-header);
+    border-color: var(--background-header);
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+.container-fluid {
+    background: var(--background-claro) !important;
+}
+footer.sticky-footer {
+    background: var(--background-claro) !important;
+}
+html.program {
+    background: var(--background-claro) !important;
+}
+
+input.form-control {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
