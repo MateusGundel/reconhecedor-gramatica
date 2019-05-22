@@ -22,7 +22,7 @@ def create_post(request):
             sentencas_list = sentencas.generate(object_from_view)
             response_data.update({'gramatica':tipo_gramatica})
             response_data.update({'sentencas': sentencas_list})
-            response_data.update({'message': "Processamento OK"})
+            response_data.update({'message': "Reconhecimento OK!"})
         else:
             response_data.update({'message': mensagem})
 

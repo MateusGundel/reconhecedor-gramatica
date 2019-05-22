@@ -37,8 +37,8 @@ def verifica_entrada_producao(object_from_view):
             return False, "Deve ser utilizado \"|\" para separar as produções ao invés de \",\""
         for item in str(production['esquerda']).replace(",", "").replace(" ", ""):
             if not item in non_terminal:
-                return False, "A Gramática não possui o não terminal " + item + " que está na produção"
+                return False, "A Gramática não possui o não terminal \"" + item + "\" que está na produção"
         for item in str(production['direita']).replace(",", "").replace(" ", "").replace("|", ""):
             if not item in terminal and not item in non_terminal:
-                return False, "A Gramática não possui o terminal " + item + " que está na produção"
+                return False, "A Gramática não possui o terminal \"" + item + "\" que está na produção"
     return True, ""
