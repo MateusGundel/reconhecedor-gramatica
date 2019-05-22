@@ -100,8 +100,8 @@ gramatica_exemplo = function (tipo_gramatica) {
             break;
         case 1:
             objeto_gramatica = {
-                "gramaticaTerminal": "S, B, C",
-                "gramaticaNaoTerminal": "a, b, c",
+                "gramaticaNaoTerminal": "S, B, C",
+                "gramaticaTerminal": "a, b, c",
                 "gramaticaInicial": "S",
                 "L(G)": "anbncn | n>=1}",
                 "listItem": [
