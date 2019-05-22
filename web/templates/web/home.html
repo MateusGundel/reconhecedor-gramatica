@@ -70,7 +70,7 @@
                             <input type="text" class="form-control col-2" ng-model="gramaticaNaoTerminal">
                             <label> }, { </label>
                             <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
-                            <label> }, P,  </label>
+                            <label> }, P, </label>
                             <input type="text" class="form-control col-1" ng-model="gramaticaInicial">
                             <label> )</label>
                         </div>
@@ -103,7 +103,14 @@
                         <h4 class="m-0 font-weight-bold text-white">Resultado</h4>
                     </div>
                     <div class="card-body">
-                        [[finalResult]]
+                        <h4 class="card-title">[[finalResult.message]]</h4>
+                        <div ng-repeat="sentenca in finalResult.sentencas track by $index">
+                            <div class="form-group form-inline">
+                                <span class="mx-1">Sentença [[$index+1]] =</span>
+                                <input class="form-control mx-1" type="text" ng-model="sentenca" readonly>
+                            </div>
+                            <div class="row">
+                        </div>
                     </div>
                 </div>
             </div>

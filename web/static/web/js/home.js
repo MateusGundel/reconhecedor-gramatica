@@ -55,7 +55,8 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         })
             .then(function successCallback(response) {
-                $scope.finalResult = response;
+                $scope.finalResult =  JSON.parse(JSON.stringify(response.data));
+                console.log($scope.finalResult.sentencas)
                 $scope.isFinalResult = true;
                 $.unblockUI();
             }, function errorCallback(response) {
@@ -100,8 +101,8 @@ gramatica_exemplo = function (tipo_gramatica) {
             break;
         case 1:
             objeto_gramatica = {
-                "gramaticaTerminal": "S, B, C",
-                "gramaticaNaoTerminal": "a, b, c",
+                "gramaticaNaoTerminal": "S, B, C",
+                "gramaticaTerminal": "a, b, c",
                 "gramaticaInicial": "S",
                 "L(G)": "anbncn | n>=1}",
                 "listItem": [
