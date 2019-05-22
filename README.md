@@ -13,5 +13,5 @@ Trabalho desenvolvido para a discipla de Linguagens Formais da UNISC
 #### rodar o server
 ```python manage.py runserver 0.0.0.0:8000```
 
-E basta acessar [o endereço](localhost:8000) na sua máquina
+E basta acessar [o endereço](https://localhost:8000) na sua máquina
 
