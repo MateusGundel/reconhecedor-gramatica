@@ -1,7 +1,9 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse, Http404
 import json
-from daemon.functions import Functions
+import daemon.gramatica as gramatica
+import daemon.consistencia as consistencia
+import daemon.sentencas as sentencas
 
 
 # Create your views here.
@@ -12,9 +14,18 @@ def home_view(request):
 @csrf_exempt
 def create_post(request):
     if request.method == 'POST':
-        functions = Functions()
-        functions.process(json.loads(request.body))
-        response_data = "respondeu"
+        object_from_view = json.loads(request.body)
+        response_data = {}
+        correto, mensagem = consistencia.verifica(object_from_view)
+        if correto:
+            gramatica.verifica(object_from_view)
+            sentencas_list = sentencas.generate(object_from_view)
+            response_data.update({'sentencas': sentencas_list})
+            response_data.update({'message': "Processamento OK"})
+        else:
+            response_data.update({'message': mensagem})
+
+        print(response_data)
         return HttpResponse(
             json.dumps(response_data)
         )

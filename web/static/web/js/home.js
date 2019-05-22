@@ -55,7 +55,8 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         })
             .then(function successCallback(response) {
-                $scope.finalResult = response;
+                $scope.finalResult =  JSON.parse(JSON.stringify(response.data));
+                console.log($scope.finalResult.sentencas)
                 $scope.isFinalResult = true;
                 $.unblockUI();
             }, function errorCallback(response) {

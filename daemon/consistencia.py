@@ -5,8 +5,11 @@ def verifica(object_from_view):
     lista = []
     lista.append(verifica_entrada_gramatica(object_from_view))
     lista.append(verifica_entrada_producao(object_from_view))
-    return lista
-
+    print(lista)
+    for (valido, text) in lista:
+        if not valido:
+            return valido, text
+    return True, ""
 
 def verifica_entrada(regex, objects):
     if not len(re.findall(regex, objects)) == len(objects):
@@ -22,7 +25,7 @@ def verifica_entrada_gramatica(object_from_view):
         return False, "Não terminal deve possuir somente letras minúsculas e \",\""
     if verifica_entrada(re.compile("[A-Z]"), object_from_view['gramatica-inicial']):
         return False, "Letra inicial deve possuir somente letra uma minúsculas"
-    return True
+    return True, ""
 
 
 def verifica_entrada_producao(object_from_view):
@@ -30,12 +33,12 @@ def verifica_entrada_producao(object_from_view):
     terminal = str(object_from_view['gramatica-terminal']).replace(" ", "").replace("|", "")
     list_esquerda = []
     for production in object_from_view['producao']:
-        if "," in production['direita'] or production['esquerda']:
+        if "," in production['direita'] or "," in production['esquerda']:
             return False, "Deve ser utilizado \"|\" para separar as produções ao invés de \",\""
         for item in str(production['esquerda']).replace(",", "").replace(" ", ""):
             if not item in non_terminal:
-                return False, "A Gramática não possui o não terminal " + item + " da produção"
+                return False, "A Gramática não possui o não terminal " + item + " que está na produção"
         for item in str(production['direita']).replace(",", "").replace(" ", "").replace("|", ""):
             if not item in terminal and not item in non_terminal:
-                return False, "A Gramática não possui o terminal " + item + " da produção"
-    return True
+                return False, "A Gramática não possui o terminal " + item + " que está na produção"
+    return True, ""
