@@ -7,6 +7,12 @@ def verifica(object_from_view):
     lista.append(verifica_entrada_producao(object_from_view))
     print(lista)
 
+
+def verifica_entrada(regex, objects):
+    if not len(re.findall(regex, objects) == len(objects)):
+        return False
+
+
 def verifica_entrada_gramatica(object_from_view):
     if str(object_from_view['gramatica-terminal']).endswith(","):
         return False, "Termina com vírgula"
@@ -26,14 +32,15 @@ def verifica_entrada_gramatica(object_from_view):
 
 
 def verifica_entrada_producao(object_from_view):
-    non_terminal = str(object_from_view['gramatica-nao-terminal']).replace(" ", "").replace(",", "")
-    terminal = str(object_from_view['gramatica-terminal']).replace(" ", "").replace(",", "")
+    non_terminal = str(object_from_view['gramatica-nao-terminal']).replace(" ", "").replace(",", "").replace("|", "")
+    terminal = str(object_from_view['gramatica-terminal']).replace(" ", "").replace(",", "").replace("|", "")
+    list_esquerda = []
     for production in object_from_view['producao']:
-        for item in str(production['esquerda']).replace(",","").replace(" ", ""):
+        print(list_esquerda)
+        for item in str(production['esquerda']).replace(",", "").replace(" ", ""):
             if not item in non_terminal:
-                return False, "A Gramática não possui o não terminal "+ item +" da produção"
-        for item in str(production['direita']).replace(",","").replace(" ", ""):
+                return False, "A Gramática não possui o não terminal " + item + " da produção"
+        for item in str(production['direita']).replace(",", "").replace(" ", ""):
             if not item in terminal and not item in non_terminal:
-                return False, "A Gramática não possui o terminal "+ item +" da produção"
+                return False, "A Gramática não possui o terminal " + item + " da produção"
     return True
-
