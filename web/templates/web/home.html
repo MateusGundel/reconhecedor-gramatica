@@ -94,7 +94,7 @@
                     </div>
 
                     <div class="card-body">
-                        <input class="btn btn-success mx-1" type="button" value="Verificar" ng-click="generate()">
+                        <input class="btn btn-success mx-1" type="button" value="Reconhecer" ng-click="generate()">
                     </div>
                 </div>
 
@@ -103,7 +103,8 @@
                         <h4 class="m-0 font-weight-bold text-white">Resultado</h4>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">[[finalResult.message]]</h4>
+                        <h5 class="card-title">[[finalResult.message]]</h5>
+                        <h5 class="card-title">[[finalResult.gramatica]]</h5>
                         <div ng-repeat="sentenca in finalResult.sentencas track by $index">
                             <div class="form-group form-inline">
                                 <span class="mx-1">Sentença [[$index+1]] =</span>

@@ -31,14 +31,13 @@ def verifica_entrada_gramatica(object_from_view):
 def verifica_entrada_producao(object_from_view):
     non_terminal = str(object_from_view['gramatica-nao-terminal']).replace(" ", "").replace("|", "")
     terminal = str(object_from_view['gramatica-terminal']).replace(" ", "").replace("|", "")
-    list_esquerda = []
     for production in object_from_view['producao']:
         if "," in production['direita'] or "," in production['esquerda']:
             return False, "Deve ser utilizado \"|\" para separar as produções ao invés de \",\""
         for item in str(production['esquerda']).replace(",", "").replace(" ", ""):
-            if not item in non_terminal:
-                return False, "A Gramática não possui o não terminal " + item + " que está na produção"
+            if not item in terminal and not item in non_terminal:
+                return False, "A Gramática não possui o não terminal \"" + item + "\" que está na produção"
         for item in str(production['direita']).replace(",", "").replace(" ", "").replace("|", ""):
             if not item in terminal and not item in non_terminal:
-                return False, "A Gramática não possui o terminal " + item + " que está na produção"
+                return False, "A Gramática não possui o terminal \"" + item + "\" que está na produção"
     return True, ""

@@ -18,10 +18,11 @@ def create_post(request):
         response_data = {}
         correto, mensagem = consistencia.verifica(object_from_view)
         if correto:
-            gramatica.verifica(object_from_view)
+            tipo_gramatica = gramatica.verifica(object_from_view)
             sentencas_list = sentencas.generate(object_from_view)
+            response_data.update({'gramatica':tipo_gramatica})
             response_data.update({'sentencas': sentencas_list})
-            response_data.update({'message': "Processamento OK"})
+            response_data.update({'message': "Reconhecimento OK!"})
         else:
             response_data.update({'message': mensagem})
 

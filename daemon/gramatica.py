@@ -61,8 +61,18 @@ def verifica(object_from_view):
     if (objeto_flags["is_gram_regular"] > 0):
         objeto_flags["is_gram_regular"] = 2
 
-    print(objeto_flags)
-    return objeto_flags
+    # print(objeto_flags)
+    if objeto_flags["is_gram_regular"] == 2:
+        return type_and_enums_gramatica(3)
+    elif objeto_flags["is_gram_livre"] == 2:
+        return type_and_enums_gramatica(2)
+    elif objeto_flags["is_gram_sensivel"] == 2:
+        return type_and_enums_gramatica(1)
+    elif objeto_flags["is_gram_irrestrita"] == 2:
+        return type_and_enums_gramatica(0)
+
+    return "Não foi identificado nenhum tipo de gramática"
+    # return objeto_flags
 
 
 def is_gram_irrestrita(lado_esquerdo, lado_direito, object_from_view):  # 0
