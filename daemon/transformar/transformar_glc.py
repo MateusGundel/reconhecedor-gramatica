@@ -29,13 +29,13 @@ class transformation:
                             self.producoes[producao].append(elemento.replace(char, ""))
         
 
-    def elimina_producoes_unitarias(self, producoes):
+    def elimina_producoes_unitarias(self):
         pass
 
-    def elimina_simbolos_inuteis(self, producoes):
+    def elimina_simbolos_inuteis(self):
         pass
 
-    def fatoracao(self, producoes):
+    def fatoracao(self):
         pass
 
     def recursao_a_esquerda(self):
