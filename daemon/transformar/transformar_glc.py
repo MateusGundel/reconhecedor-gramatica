@@ -19,14 +19,14 @@ class transformation:
                 conjunto_var_leva_vazio.append(producao)
                 self.producoes[producao].remove(self.sentenca_vazia)
         if(len(conjunto_var_leva_vazio) > 0):
-            for producao in self.producoes[producao]:
+            for producao in self.producoes:
                 if (conjunto_var_leva_vazio[0] in self.producoes[producao]):
                     conjunto_var_leva_vazio.append(producao)
             for producao in self.producoes:
-                for index, elemento in enumerate(self.producoes[producao]):
+                for elemento in self.producoes[producao]:
                     for char in elemento:
                         if (char in conjunto_var_leva_vazio):
-                            self.producoes[producao][index].append(elemento.replace(char, ""))
+                            self.producoes[producao].append(elemento.replace(char, ""))
         
 
     def elimina_producoes_unitarias(self, producoes):
