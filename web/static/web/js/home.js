@@ -6,7 +6,7 @@ app.config(function ($interpolateProvider) {
 app.controller('myCtrl', function ($scope, $http) {
     var debug = true;
     if (debug) {
-        var objeto_gramatica = gramatica_exemplo(5);
+        var objeto_gramatica = gramatica_exemplo(6);
         //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
         $scope.gramaticaTerminal = objeto_gramatica.gramaticaTerminal;
         $scope.gramaticaNaoTerminal = objeto_gramatica.gramaticaNaoTerminal;
@@ -276,7 +276,30 @@ gramatica_exemplo = function (tipo_gramatica) {
                 ]
             }
             break;
-    
+        case 6:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "A, B, C",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "A",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "A",
+                        direita: "Ab | B | &"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "B",
+                        direita: "Ab | Bb"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "C",
+                        direita: "Ab"
+                    }
+                ]
+            }
+            break;
         default:
             console.error("tipo de gramática inválido");
             break;
