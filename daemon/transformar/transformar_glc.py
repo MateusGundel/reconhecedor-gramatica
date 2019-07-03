@@ -73,3 +73,6 @@ class transformation:
     def get_non_terminal_value(self):
         self.count_nao_terminal += 1
         return self.count_nao_terminal
+
+    def get_producoes(self):
+        return self.producoes

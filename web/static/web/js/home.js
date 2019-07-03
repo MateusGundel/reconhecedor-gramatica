@@ -24,6 +24,7 @@ app.controller('myCtrl', function ($scope, $http) {
         $scope.listItem.push({id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: ''});
         console.log($scope.listItem)
     }
+    $scope.tipeResponse = null;
 
     $scope.removeItem = function (id) {
         if ($scope.listItem.length > 1) {
@@ -67,8 +68,9 @@ app.controller('myCtrl', function ($scope, $http) {
         })
             .then(function successCallback(response) {
                 $scope.finalResult = JSON.parse(JSON.stringify(response.data));
-                console.log($scope.finalResult.sentencas)
+                console.log($scope.finalResult.transformacao)
                 $scope.isFinalResult = true;
+                $scope.tipeResponse = 2;
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -92,6 +94,7 @@ app.controller('myCtrl', function ($scope, $http) {
                 $scope.finalResult = JSON.parse(JSON.stringify(response.data));
                 console.log($scope.finalResult.sentencas)
                 $scope.isFinalResult = true;
+                $scope.tipeResponse = 1;
             }, function errorCallback(response) {
                 console.log(response);
             });
