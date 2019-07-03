@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse, Http404
 import json
-import daemon.gramatica as gramatica
-import daemon.consistencia as consistencia
-import daemon.sentencas as sentencas
+import daemon.reconhecedor.gramatica as gramatica
+import daemon.reconhecedor.consistencia as consistencia
+import daemon.reconhecedor.sentencas as sentencas
+import daemon.transformar.transformar_glc as transformar_glc
 
 
 # Create your views here.
@@ -12,7 +13,7 @@ def home_view(request):
 
 
 @csrf_exempt
-def create_post(request):
+def reconhecer(request):
     if request.method == 'POST':
         object_from_view = json.loads(request.body)
         response_data = {}
@@ -26,6 +27,22 @@ def create_post(request):
         else:
             response_data.update({'message': mensagem})
 
+        print(response_data)
+        return HttpResponse(
+            json.dumps(response_data)
+        )
+    else:
+        raise Http404
+
+@csrf_exempt
+def transformar(request):
+    if request.method == 'POST':
+        object_from_view = json.loads(request.body)
+        response_data = {}
+
+        transformar_glc.__start__(object_from_view)
+
+        response_data.update({'message': "Transformacao OK!"})
         print(response_data)
         return HttpResponse(
             json.dumps(response_data)

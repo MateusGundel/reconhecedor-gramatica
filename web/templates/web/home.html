@@ -94,7 +94,9 @@
                     </div>
 
                     <div class="card-body">
-                        <input class="btn btn-success mx-1" type="button" value="Reconhecer" ng-click="generate()">
+                        <input class="btn btn-success mx-1" type="button" value="Reconhecer Gramática"
+                               ng-click="generate(1)">
+                        <input class="btn btn-success mx-1" type="button" value="Transformar GLC" ng-click="generate(2)">
                     </div>
                 </div>
 
@@ -111,19 +113,19 @@
                                 <input class="form-control mx-1" type="text" ng-model="sentenca" readonly>
                             </div>
                             <div class="row">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer class="sticky-footer">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright © Mateus Elias Gündel e Thales Eduardo Müller 2019</span>
+        <footer class="sticky-footer">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright © Mateus Elias Gündel e Thales Eduardo Müller 2019</span>
+                </div>
             </div>
-        </div>
-    </footer>
-</div>
+        </footer>
+    </div>
 </html>
