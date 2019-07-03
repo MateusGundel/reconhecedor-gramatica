@@ -1,5 +1,6 @@
 class transformation:
     count_nao_terminal = 0
+    sentenca_vazia = "&"
 
     def __init__(self, object_from_view):
         producoes = {}
@@ -9,8 +10,21 @@ class transformation:
         self.recursao_a_esquerda(producoes)
 
     def elimina_producoes_vazias(self, producoes):
+        conjunto_var_leva_vazio = []
         for producao in producoes:
-            print(str(producao) + " : " + str(producoes[producao]))
+            if (self.sentenca_vazia in producoes[producao]):
+                conjunto_var_leva_vazio.append(producao)
+                producoes[producao] = producoes[producao][producoes[producao].index(
+                    self.sentenca_vazia)] = producao
+        if(len(conjunto_var_leva_vazio > 0)):
+            for producao in producoes[producao]:
+                if conjunto_var_leva_vazio[0] in producoes[producao]:
+                    conjunto_var_leva_vazio.append(producao)
+            for producao in producoes:
+                for index, elemento in enumerate(producoes[producao]):
+                    for char in elemento:
+                        if (char in conjunto_var_leva_vazio):
+                            producoes[producao][index].append(elemento.replace(char, ""))
 
     def elimina_producoes_unitarias(self, producoes):
 
