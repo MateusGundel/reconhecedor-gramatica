@@ -12,19 +12,18 @@ class transformation:
         self.terminais = object_from_view["gramatica-terminal"].replace(" ", "").split(",")
         self.nao_terminais = object_from_view["gramatica-nao-terminal"].replace(" ", "").split(",")
         self.gramatica_inicial = object_from_view["gramatica-inicial"]
-
         for prod in object_from_view["producao"]:
             self.producoes.update({prod["esquerda"]: prod["direita"].replace(" ", "").split("|")})
-        print(self.producoes)
+        #print(self.producoes)
         self.elimina_producoes_vazias()
-        print(self.producoes)
+        #print(self.producoes)
         self.elimina_producoes_unitarias()
-        print(self.producoes)
+        #print(self.producoes)
         self.elimina_simbolos_inuteis()
-        print(self.producoes)
+        #print(self.producoes)
         #self.fatoracao()
         #print(self.producoes)
-        self.recursao_a_esquerda()
+        #self.recursao_a_esquerda()
         print(self.producoes)
 
     def elimina_producoes_vazias(self):
