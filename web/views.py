@@ -40,7 +40,7 @@ def transformar(request):
         object_from_view = json.loads(request.body)
         response_data = {}
 
-        transformar_glc.__start__(object_from_view)
+        transformar_glc.transformation(object_from_view)
 
         response_data.update({'message': "Transformacao OK!"})
         print(response_data)
