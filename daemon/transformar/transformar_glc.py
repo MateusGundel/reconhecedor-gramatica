@@ -2,13 +2,28 @@ class transformation:
     count_nao_terminal = 0
     sentenca_vazia = "&"
     producoes = {}
+    terminais = []
+    nao_terminais = []
+    gramatica_inicial = ""
+
 
     def __init__(self, object_from_view):
         self.producoes = {}
+        self.terminais = object_from_view["gramatica-nao-terminal"].replace(" ", "").split(",")
+        self.nao_terminais = object_from_view["gramatica-terminal"].replace(" ", "").split(",")
+        self.gramatica_inicial = object_from_view["gramatica-inicial"]
+
         for prod in object_from_view["producao"]:
             self.producoes.update({prod["esquerda"]: prod["direita"].replace(" ", "").split("|")})
         print(self.producoes)
         self.elimina_producoes_vazias()
+        print(self.producoes)
+        self.elimina_producoes_unitarias()
+        print(self.producoes)
+        self.elimina_simbolos_inuteis()
+        print(self.producoes)
+        self.fatoracao()
+        print(self.producoes)
         self.recursao_a_esquerda()
         print(self.producoes)
 
@@ -28,9 +43,14 @@ class transformation:
                         if (char in conjunto_var_leva_vazio):
                             self.producoes[producao].append(elemento.replace(char, ""))
         
-
     def elimina_producoes_unitarias(self):
-        pass
+        for producao in self.producoes:
+            for index, elemento in enumerate(self.producoes[producao]):
+                if((len(elemento) == 1) and (elemento in self.nao_terminais)):
+                    del self.producoes[producao][index]
+                    for producao_var_unica in self.producoes[elemento]:
+                        if(not(producao_var_unica in self.producoes[producao])):
+                            self.producoes[producao].append(producao_var_unica)
 
     def elimina_simbolos_inuteis(self):
         pass
