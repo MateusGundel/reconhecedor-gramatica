@@ -57,8 +57,10 @@ class transformation:
             for producao in self.producoes:
                 if (elemento == producao):
                     continue
-                if (elemento in self.producoes[producao]):
-                    is_in_a_prod = True
+                else:
+                    for node in self.producoes[producao]:
+                        if (elemento in node):
+                            is_in_a_prod = True
             if(not(is_in_a_prod)):
                 del self.producoes[elemento]
 
