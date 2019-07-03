@@ -1,14 +1,14 @@
 class transformation:
     count_nao_terminal = 0
     sentenca_vazia = "&"
-    producoes = []
+    producoes = {}
 
     def __init__(self, object_from_view):
-        producoes = {}
+        self.producoes = {}
         for prod in object_from_view["producao"]:
-            producoes.update({prod["esquerda"]: prod["direita"].split("|")})
+            self.producoes.update({prod["esquerda"]: prod["direita"].split("|")})
         self.elimina_producoes_vazias()
-        self.recursao_a_esquerda(producoes)
+        self.recursao_a_esquerda(self.producoes)
 
     def elimina_producoes_vazias(self):
         conjunto_var_leva_vazio = []
