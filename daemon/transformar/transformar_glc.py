@@ -6,7 +6,6 @@ class transformation:
     nao_terminais = []
     gramatica_inicial = ""
 
-
     def __init__(self, object_from_view):
         self.producoes = {}
         self.terminais = object_from_view["gramatica-nao-terminal"].replace(" ", "").split(",")
@@ -21,10 +20,10 @@ class transformation:
         self.elimina_producoes_unitarias()
         print(self.producoes)
         self.elimina_simbolos_inuteis()
-        print(self.producoes)
-        self.fatoracao()
-        print(self.producoes)
-        self.recursao_a_esquerda()
+        #print(self.producoes)
+        #self.fatoracao()
+        #print(self.producoes)
+        #self.recursao_a_esquerda()
         print(self.producoes)
 
     def elimina_producoes_vazias(self):
@@ -53,7 +52,15 @@ class transformation:
                             self.producoes[producao].append(producao_var_unica)
 
     def elimina_simbolos_inuteis(self):
-        pass
+        for elemento in self.nao_terminais:
+            is_in_a_prod = False
+            for producao in self.producoes:
+                if (elemento == producao):
+                    continue
+                if (elemento in self.producoes[producao]):
+                    is_in_a_prod = True
+            if(not(is_in_a_prod)):
+                del self.producoes[elemento]
 
     def fatoracao(self):
         pass
@@ -83,7 +90,6 @@ class transformation:
         if new_variable is not None:
             for index, producao in enumerate(producoes[recursao[0]]):
                 producoes[recursao[0]][index] = producoes[recursao[0]][index]+new_variable
-
         self.producoes = producoes
 
     def resolve_ambiguidade(self):  # opcional, nem fudendo q a gente vai fazer
