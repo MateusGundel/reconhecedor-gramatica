@@ -6,9 +6,11 @@ class transformation:
     def __init__(self, object_from_view):
         self.producoes = {}
         for prod in object_from_view["producao"]:
-            self.producoes.update({prod["esquerda"]: prod["direita"].split("|")})
+            self.producoes.update({prod["esquerda"]: prod["direita"].replace(" ", "").split("|")})
+        print(self.producoes)
         self.elimina_producoes_vazias()
-        self.recursao_a_esquerda(self.producoes)
+        self.recursao_a_esquerda()
+        print(self.producoes)
 
     def elimina_producoes_vazias(self):
         conjunto_var_leva_vazio = []
@@ -36,7 +38,8 @@ class transformation:
     def fatoracao(self, producoes):
         pass
 
-    def recursao_a_esquerda(self, producoes):
+    def recursao_a_esquerda(self):
+        producoes = self.producoes
         for producao in producoes:
             for word in producoes[producao]:
                 for letter in word:
@@ -48,7 +51,7 @@ class transformation:
                                         print(producoes[prod2])
                                         print(prod2)
 
-        return producoes
+        self.producoes = producoes
 
     def resolve_ambiguidade(self):  # opcional, nem fudendo q a gente vai fazer
         pass
