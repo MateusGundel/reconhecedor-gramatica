@@ -56,7 +56,20 @@ class transformation:
         pass
 
     def fatoracao(self):
-        pass
+        count = 0
+        # letters = []
+        # for producao in self.producoes:
+        #     for word in self.producoes[producao]:
+        #         for letter in word:
+        #             if letter in self.nao_terminais:
+        #                 letters.append({"letter":letter, "word":word, "producao":producao})
+        # for item in letters:
+        #     for item2 in letters:
+        #         if item["letter"] == item2["letter"] and item["producao"] != item2["producao"]:
+                    
+                    # print("B-------------- "+str(item["letter"])+ "  "+str(item["word"])+"  "+ str(item["producao"]))
+                    # print("2--------- "+str(item2["letter"])+ "  "+str(item2["word"])+"  "+ str(item2["producao"]))
+
 
     def recursao_a_esquerda(self):
         producoes = self.producoes
@@ -77,7 +90,7 @@ class transformation:
                 if recursao[1] in producao:
                     for p in producoes[recursao[1]]:
                         producoes[recursao[0]].pop(index)
-                        new_variable = "V"+str(self.get_non_terminal_value())
+                        new_variable = str(self.get_non_terminal_value())
                         producoes.update({new_variable:[(p+producao.replace(recursao[1], ""))
                                          .replace(recursao[0], "")+new_variable, "&"]})
         if new_variable is not None:

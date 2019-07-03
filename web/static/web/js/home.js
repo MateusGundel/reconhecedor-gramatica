@@ -4,9 +4,9 @@ app.config(function ($interpolateProvider) {
 })
 
 app.controller('myCtrl', function ($scope, $http) {
-    var debug = false;
+    var debug = true;
     if (debug) {
-        var objeto_gramatica = gramatica_exemplo(2);
+        var objeto_gramatica = gramatica_exemplo(5);
         //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
         $scope.gramaticaTerminal = objeto_gramatica.gramaticaTerminal;
         $scope.gramaticaNaoTerminal = objeto_gramatica.gramaticaNaoTerminal;
@@ -231,6 +231,52 @@ gramatica_exemplo = function (tipo_gramatica) {
                 ]
             }
             break;
+        case 4:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A",
+                "gramaticaTerminal": "a, b, c",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "Aa"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "Sb|cA|a"
+                    }
+                ]
+            }
+            break;
+        case 5:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A, B",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "aA | aB"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "aA | a"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "B",
+                        direita: "b"
+                    }
+                ]
+            }
+            break;
+    
         default:
             console.error("tipo de gramática inválido");
             break;
