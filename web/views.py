@@ -40,8 +40,17 @@ def transformar(request):
         object_from_view = json.loads(request.body)
         response_data = {}
 
-        transformar_glc.transformation(object_from_view)
-
+        transformacao = transformar_glc.transformation(object_from_view)
+        dic = []
+        for trans in transformacao.get_producoes():
+            text = ""
+            for t in transformacao.get_producoes()[trans]:
+                if text != "":
+                    text = text + " | "
+                text = text+t
+            dic.append({"direita":trans, "esquerda":text})
+        print(dic)
+        response_data.update({"transformacao" : dic})
         response_data.update({'message': "Transformacao OK!"})
         print(response_data)
         return HttpResponse(

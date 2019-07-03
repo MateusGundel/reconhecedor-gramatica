@@ -4,9 +4,9 @@ app.config(function ($interpolateProvider) {
 })
 
 app.controller('myCtrl', function ($scope, $http) {
-    var debug = false;
+    var debug = true;
     if (debug) {
-        var objeto_gramatica = gramatica_exemplo(2);
+        var objeto_gramatica = gramatica_exemplo(5);
         //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
         $scope.gramaticaTerminal = objeto_gramatica.gramaticaTerminal;
         $scope.gramaticaNaoTerminal = objeto_gramatica.gramaticaNaoTerminal;
@@ -24,6 +24,7 @@ app.controller('myCtrl', function ($scope, $http) {
         $scope.listItem.push({id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: ''});
         console.log($scope.listItem)
     }
+    $scope.tipeResponse = null;
 
     $scope.removeItem = function (id) {
         if ($scope.listItem.length > 1) {
@@ -67,8 +68,9 @@ app.controller('myCtrl', function ($scope, $http) {
         })
             .then(function successCallback(response) {
                 $scope.finalResult = JSON.parse(JSON.stringify(response.data));
-                console.log($scope.finalResult.sentencas)
+                console.log($scope.finalResult.transformacao)
                 $scope.isFinalResult = true;
+                $scope.tipeResponse = 2;
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -92,6 +94,7 @@ app.controller('myCtrl', function ($scope, $http) {
                 $scope.finalResult = JSON.parse(JSON.stringify(response.data));
                 console.log($scope.finalResult.sentencas)
                 $scope.isFinalResult = true;
+                $scope.tipeResponse = 1;
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -228,6 +231,52 @@ gramatica_exemplo = function (tipo_gramatica) {
                 ]
             }
             break;
+        case 4:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A",
+                "gramaticaTerminal": "a, b, c",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "Aa"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "Sb|cA|a"
+                    }
+                ]
+            }
+            break;
+        case 5:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A, B",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "aA | aB"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "aA | a"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "B",
+                        direita: "b"
+                    }
+                ]
+            }
+            break;
+    
         default:
             console.error("tipo de gramática inválido");
             break;

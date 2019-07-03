@@ -100,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="card shadow mb-4" ng-show="isFinalResult">
+                <div class="card shadow mb-4" ng-show="isFinalResult && tipeResponse == 1">
                     <div class="card-header bg-dark py-3">
                         <h4 class="m-0 font-weight-bold text-white">Resultado</h4>
                     </div>
@@ -111,6 +111,25 @@
                             <div class="form-group form-inline">
                                 <span class="mx-1">Sentença [[$index+1]] =</span>
                                 <input class="form-control mx-1" type="text" ng-model="sentenca" readonly>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow mb-4" ng-show="isFinalResult && tipeResponse == 2">
+                    <div class="card-header bg-dark py-3">
+                        <h4 class="m-0 font-weight-bold text-white">Resultado</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">[[finalResult.message]]</h5>
+                        <div ng-repeat="transformacao in finalResult.transformacao track by $index">
+                            <div class="form-group form-inline">
+                                <span class="mx-1"></span>
+
+                                <input class="form-control mx-1" type="text" ng-model="transformacao.direita" readonly>
+                                <span> --> </span>
+                                <input class="form-control mx-1" type="text" ng-model="transformacao.esquerda" readonly>
                             </div>
                             <div class="row">
                             </div>
