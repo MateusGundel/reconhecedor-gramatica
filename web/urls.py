@@ -3,5 +3,6 @@ from web import views
 
 urlpatterns = [
     path('', views.home_view),
-    path('create_post/', views.create_post),
+    path('reconhecer/', views.reconhecer),
+    path('transformar/', views.transformar),
 ]

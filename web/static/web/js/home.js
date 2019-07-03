@@ -6,7 +6,7 @@ app.config(function ($interpolateProvider) {
 app.controller('myCtrl', function ($scope, $http) {
     var debug = true;
     if (debug) {
-        var objeto_gramatica = gramatica_exemplo(3);
+        var objeto_gramatica = gramatica_exemplo(6);
         //inspeciona o elemento ali e depois no console da um $($0).scope().debug = true
         $scope.gramaticaTerminal = objeto_gramatica.gramaticaTerminal;
         $scope.gramaticaNaoTerminal = objeto_gramatica.gramaticaNaoTerminal;
@@ -16,14 +16,15 @@ app.controller('myCtrl', function ($scope, $http) {
         $scope.gramaticaTerminal = "";
         $scope.gramaticaNaoTerminal = "";
         $scope.gramaticaInicial = "";
-        $scope.listItem = [{ id: 0, esquerda: '', direita: '' }];
+        $scope.listItem = [{id: 0, esquerda: '', direita: ''}];
     }
     $scope.finalResult = "";
     $scope.isFinalResult = false;
     $scope.addItem = function () {
-        $scope.listItem.push({ id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: '' });
+        $scope.listItem.push({id: $scope.listItem[$scope.listItem.length - 1]['id'] + 1, esquerda: '', direita: ''});
         console.log($scope.listItem)
     }
+    $scope.tipeResponse = null;
 
     $scope.removeItem = function (id) {
         if ($scope.listItem.length > 1) {
@@ -38,12 +39,23 @@ app.controller('myCtrl', function ($scope, $http) {
         }
     }
 
-    $scope.generate = function () {
+    $scope.generate = function (tipo) {
         // $.blockUI({ message: '<h1><img src="https://scontent.fpoa8-1.fna.fbcdn.net/v/t1.0-9/29315270_1782513481769521_4325627701726543872_n.jpg?_nc_cat=107&_nc_ht=scontent.fpoa8-1.fna&oh=f80982f84264cbf42099379008f0d002&oe=5D5109C6" /> Just a moment...</h1>' });
-        $.blockUI({ message: 'Please Wait' });
+        $.blockUI({message: 'Please Wait'});
+        switch (tipo) {
+            case 1:
+                verificarGramatica();
+            case 2:
+                transformarGlc();
+        }
+        $.unblockUI();
+
+    }
+
+    transformarGlc = function () {
         $http({
             method: "POST",
-            url: '/create_post/',
+            url: '/transformar/',
             data: {
                 'gramatica-terminal': $scope.gramaticaTerminal,
                 'gramatica-nao-terminal': $scope.gramaticaNaoTerminal,
@@ -55,16 +67,40 @@ app.controller('myCtrl', function ($scope, $http) {
             }
         })
             .then(function successCallback(response) {
-                $scope.finalResult =  JSON.parse(JSON.stringify(response.data));
-                console.log($scope.finalResult.sentencas)
+                $scope.finalResult = JSON.parse(JSON.stringify(response.data));
+                console.log($scope.finalResult.transformacao)
                 $scope.isFinalResult = true;
-                $.unblockUI();
+                $scope.tipeResponse = 2;
             }, function errorCallback(response) {
                 console.log(response);
-                $.unblockUI();
+            });
+    }
+
+    verificarGramatica = function () {
+        $http({
+            method: "POST",
+            url: '/reconhecer/',
+            data: {
+                'gramatica-terminal': $scope.gramaticaTerminal,
+                'gramatica-nao-terminal': $scope.gramaticaNaoTerminal,
+                'gramatica-inicial': $scope.gramaticaInicial,
+                'producao': $scope.listItem
+            },
+            headers: {
+                'Content-Type': undefined
+            }
+        })
+            .then(function successCallback(response) {
+                $scope.finalResult = JSON.parse(JSON.stringify(response.data));
+                console.log($scope.finalResult.sentencas)
+                $scope.isFinalResult = true;
+                $scope.tipeResponse = 1;
+            }, function errorCallback(response) {
+                console.log(response);
             });
     }
 });
+
 
 gramatica_exemplo = function (tipo_gramatica) {
     var objeto_gramatica = {};
@@ -83,7 +119,7 @@ gramatica_exemplo = function (tipo_gramatica) {
                     },
                     {
                         id: 1,
-                        esquerda: "BC",
+                        esquerda: "C",
                         direita: "CB"
                     },
                     {
@@ -118,27 +154,27 @@ gramatica_exemplo = function (tipo_gramatica) {
                     },
                     {
                         id: 3,
-                        esquerda: "CB",
+                        esquerda: "B",
                         direita: "BC"
                     },
                     {
                         id: 4,
-                        esquerda: "aB",
+                        esquerda: "B",
                         direita: "ab"
                     },
                     {
                         id: 5,
-                        esquerda: "bB",
+                        esquerda: "B",
                         direita: "bb"
                     },
                     {
                         id: 6,
-                        esquerda: "bC",
+                        esquerda: "C",
                         direita: "bc"
                     },
                     {
                         id: 7,
-                        esquerda: "cC",
+                        esquerda: "C",
                         direita: "cc"
                     }
                 ]
@@ -159,7 +195,7 @@ gramatica_exemplo = function (tipo_gramatica) {
                     },
                     {
                         id: 0,
-                        esquerda: "BC",
+                        esquerda: "C",
                         direita: "CB"
                     },
                     {
@@ -195,10 +231,80 @@ gramatica_exemplo = function (tipo_gramatica) {
                 ]
             }
             break;
+        case 4:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A",
+                "gramaticaTerminal": "a, b, c",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "Aa"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "Sb|cA|a"
+                    }
+                ]
+            }
+            break;
+        case 5:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "S, A, B",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "S",
+                "L(G)": "{anb; n ≥0} ou a*b",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "S",
+                        direita: "aA | aB"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "A",
+                        direita: "aA | a"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "B",
+                        direita: "b"
+                    }
+                ]
+            }
+            break;
+        case 6:
+            objeto_gramatica = objeto_gramatica = {
+                "gramaticaNaoTerminal": "A, B, C",
+                "gramaticaTerminal": "a, b",
+                "gramaticaInicial": "A",
+                "listItem": [
+                    {
+                        id: 0,
+                        esquerda: "A",
+                        direita: "Ab | B | &"
+                    },
+                    {
+                        id: 1,
+                        esquerda: "B",
+                        direita: "Ab | Bb"
+                    },
+                    {
+                        id: 2,
+                        esquerda: "C",
+                        direita: "Ab"
+                    }
+                ]
+            }
+            break;
         default:
             console.error("tipo de gramática inválido");
             break;
-    };
+    }
+    ;
     console.log(objeto_gramatica);
     return objeto_gramatica;
 };
