@@ -25,8 +25,16 @@ class transformation:
     def recursao_a_esquerda(self, producoes):
         for producao in producoes:
             for word in producoes[producao]:
-                print(    self.get_non_terminal_value())
-        pass
+                for letter in word:
+                    for prod2 in producoes:
+                        if letter == prod2 and producao != prod2:
+                            for word2 in producoes[prod2]:
+                                for letter2 in word2:
+                                    if letter2 == letter and letter2 != word2:
+                                        print(producoes[prod2])
+                                        print(prod2)
+
+        return producoes
 
     def resolve_ambiguidade(self):  # opcional, nem fudendo q a gente vai fazer
         pass
