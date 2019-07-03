@@ -20,7 +20,7 @@ class transformation:
                 self.producoes[producao].remove(self.sentenca_vazia)
         if(len(conjunto_var_leva_vazio) > 0):
             for producao in self.producoes[producao]:
-                if conjunto_var_leva_vazio[0] in self.producoes[producao]:
+                if (conjunto_var_leva_vazio[0] in self.producoes[producao]):
                     conjunto_var_leva_vazio.append(producao)
             for producao in self.producoes:
                 for index, elemento in enumerate(self.producoes[producao]):
