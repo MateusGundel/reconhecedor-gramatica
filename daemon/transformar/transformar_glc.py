@@ -15,8 +15,8 @@ class transformation:
         for producao in self.producoes:
             if (self.sentenca_vazia in self.producoes[producao]):
                 conjunto_var_leva_vazio.append(producao)
-                self.producoes[producao] = self.producoes[producao][self.producoes[producao].index(self.sentenca_vazia)] = producao
-        if(len(conjunto_var_leva_vazio > 0)):
+                self.producoes[producao][self.producoes[producao].index(self.sentenca_vazia)] = producao
+        if(len(conjunto_var_leva_vazio) > 0):
             for producao in self.producoes[producao]:
                 if conjunto_var_leva_vazio[0] in self.producoes[producao]:
                     conjunto_var_leva_vazio.append(producao)
