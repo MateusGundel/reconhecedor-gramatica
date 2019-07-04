@@ -65,7 +65,19 @@ class transformation:
                 del self.producoes[elemento]
 
     def fatoracao(self):
-        count = 0
+        for producao in self.producoes:
+            list_prod_recursividade = []
+            for elemento in enumerate(self.producoes[producao]):
+                for elemento_comp in self.producoes[producao]:
+                    if(elemento == elemento_comp):
+                        continue
+                    elif(elemento[0] == elemento_comp[0]):
+                        list_prod_recursividade.append(elemento)
+                        new_variable = str(self.get_non_terminal_value())
+                        self.producoes.update({new_variable: [elemento, elemento_comp])
+                        
+
+        #count = 0
         # letters = []
         # for producao in self.producoes:
         #     for word in self.producoes[producao]:
@@ -93,21 +105,19 @@ class transformation:
                                 for letter2 in word2:
                                     if letter2 == letter and letter2 != word2:
                                         list_recursoes.append((prod2,producao))
-
         for recursao in list_recursoes:
             for index, producao in enumerate(producoes[recursao[0]]):
                 if recursao[1] in producao:
                     for p in producoes[recursao[1]]:
                         producoes[recursao[0]].pop(index)
                         new_variable = str(self.get_non_terminal_value())
-                        producoes.update({new_variable:[(p+producao.replace(recursao[1], ""))
-                                         .replace(recursao[0], "")+new_variable, "&"]})
+                        producoes.update({new_variable:[(p+producao.replace(recursao[1], "")).replace(recursao[0], "")+new_variable, "&"]})
         if new_variable is not None:
             for index, producao in enumerate(producoes[recursao[0]]):
                 producoes[recursao[0]][index] = producoes[recursao[0]][index]+new_variable
         self.producoes = producoes
 
-    def resolve_ambiguidade(self):  # opcional, nem fudendo q a gente vai fazer
+    def resolve_ambiguidade(self): #opcional
         pass
 
     def get_non_terminal_value(self):

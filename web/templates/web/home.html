@@ -2,12 +2,13 @@
 {% load staticfiles %}
 
 <html lang="en" class="program">
+
 <head>
     <meta charset="UTF-8">
     <title>Reconhecedor de Gramática</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
     <link rel="stylesheet" href="{% static 'web/css/home.css' %}">
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/icon.png' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/icon.png' %}" />
     <script type="text/javascript" src="{% static 'web/js/home.js' %}"></script>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,9 +45,8 @@
             <a href="/home" class="navbar-brand d-flex align-items-center">
                 <strong>Manipulador de Gramáticas </strong>
             </a>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarHeader"
-                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
@@ -67,9 +67,9 @@
                         <h5 class="card-title">Gramática</h5>
                         <div class="form-group form-inline col-9">
                             <label>G = ({ </label>
-                            <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
-                            <label> }, { </label>
                             <input type="text" class="form-control col-2" ng-model="gramaticaNaoTerminal">
+                            <label> }, { </label>
+                            <input type="text" class="form-control col-2" ng-model="gramaticaTerminal">
                             <label> }, P, </label>
                             <input type="text" class="form-control col-1" ng-model="gramaticaInicial">
                             <label> )</label>
@@ -81,22 +81,23 @@
                         <div ng-repeat="item in listItem track by $index">
                             <div class="form-group form-inline">
                                 <input class="form-control mx-1" type="text" ng-value="item.esquerda"
-                                       ng-model="item.esquerda">
+                                    ng-model="item.esquerda">
                                 <span class="mx-1">=</span>
                                 <input class="form-control mx-1" type="text" ng-value="item.direita"
-                                       ng-model="item.direita">
-                                <button type="button" class="btn btn-primary mx-1"
-                                        ng-click="addItem()"><i class="fa fa-plus"></i></button>
-                                <button type="button" class="btn btn-danger mx-1 "
-                                        ng-click="removeItem(item.id)"><i class="fa fa-trash"></i></button>
+                                    ng-model="item.direita">
+                                <button type="button" class="btn btn-primary mx-1" ng-click="addItem()"><i
+                                        class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-danger mx-1 " ng-click="removeItem(item.id)"><i
+                                        class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <input class="btn btn-success mx-1" type="button" value="Reconhecer Gramática"
-                               ng-click="generate(1)">
-                        <input class="btn btn-success mx-1" type="button" value="Transformar GLC" ng-click="generate(2)">
+                            ng-click="generate(1)">
+                        <input class="btn btn-success mx-1" type="button" value="Transformar GLC"
+                            ng-click="generate(2)">
                     </div>
                 </div>
 
@@ -147,4 +148,5 @@
             </div>
         </footer>
     </div>
+
 </html>
