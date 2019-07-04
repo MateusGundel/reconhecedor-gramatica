@@ -74,9 +74,8 @@ class transformation:
                     elif(elemento[0] == elemento_comp[0]):
                         list_prod_recursividade.append(elemento)
                         new_variable = str(self.get_non_terminal_value())
-                        self.producoes.update({new_variable: [elemento, elemento_comp])
+                        #self.producoes.update({new_variable: [elemento, elemento_comp])
                         
-
         #count = 0
         # letters = []
         # for producao in self.producoes:
